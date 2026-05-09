@@ -56,7 +56,7 @@ const MENU = [
     name: "Salada Especial",
     desc: "Hambúrguer suculento, presunto, queijo, alface, tomate e nossa maionese caseira apimentada inesquecível.",
     price: 17,
-    img: "https://customer-assets.emergentagent.com/job_artisan-burger-ph/artifacts/y1wpkdvv_Captura%20de%20tela%202026-05-08%20210413.png",
+    img: "https://customer-assets.emergentagent.com/job_artisan-burger-ph/artifacts/0qzhh56n_Captura%20de%20tela%202026-05-08%20210422.png",
     tag: null,
   },
   {
@@ -80,7 +80,7 @@ const MENU = [
     name: "X-Tudo",
     desc: "Hambúrguer, calabresa, frango, presunto, queijo, ovo, alface, tomate e maionese caseira. Tudo de bom!",
     price: 21,
-    img: "https://customer-assets.emergentagent.com/job_artisan-burger-ph/artifacts/2owegpeb_Captura%20de%20tela%202026-05-08%20210422.png",
+    img: "https://customer-assets.emergentagent.com/job_artisan-burger-ph/artifacts/wc4wcltj_Captura%20de%20tela%202026-05-08%20210305.png",
     tag: "MAIS PEDIDO",
   },
   {
