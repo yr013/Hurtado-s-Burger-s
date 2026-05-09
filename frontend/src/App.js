@@ -48,7 +48,7 @@ const MENU = [
     name: "X Frango Especial",
     desc: "Filé de frango grelhado, queijo derretido cremoso, ovo, alface fresca e tomate, no pão artesanal macio.",
     price: 16,
-    img: "https://customer-assets.emergentagent.com/job_artisan-burger-ph/artifacts/tuzlda9q_Captura%20de%20tela%202026-05-08%20210404.png",
+    img: "https://customer-assets.emergentagent.com/job_artisan-burger-ph/artifacts/a0vvco3n_Captura%20de%20tela%202026-05-08%20210437.png",
     tag: null,
   },
   {
@@ -88,7 +88,7 @@ const MENU = [
     name: "Super Carga",
     desc: "O monstro da casa: 2 hambúrgueres, calabresa, frango, presunto, queijo, ovo, bacon, batata palha, milho e três molhos.",
     price: 36,
-    img: "https://customer-assets.emergentagent.com/job_artisan-burger-ph/artifacts/gwbc7mp8_Captura%20de%20tela%202026-05-08%20210430.png",
+    img: "https://customer-assets.emergentagent.com/job_artisan-burger-ph/artifacts/0jv6dk67_Captura%20de%20tela%202026-05-08%20210404.png",
     tag: "PREMIUM",
   },
   {
