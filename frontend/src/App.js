@@ -153,11 +153,11 @@ const Counter = ({ end, label, suffix = "" }) => {
     return () => clearInterval(t);
   }, [end]);
   return (
-    <div className="flex flex-col items-center text-center">
-      <span className="font-display text-5xl md:text-6xl text-yellow-400 leading-none">
+    <div className="flex flex-col items-center text-center min-w-0 px-2">
+      <span className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-yellow-400 leading-none whitespace-nowrap">
         {count.toLocaleString("pt-BR")}{suffix}
       </span>
-      <span className="mt-2 text-xs md:text-sm uppercase tracking-widest text-zinc-400">{label}</span>
+      <span className="mt-2 text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-zinc-400">{label}</span>
     </div>
   );
 };
@@ -539,8 +539,8 @@ const About = () => (
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 py-8 px-6 bg-gradient-to-br from-zinc-900 to-zinc-950 rounded-3xl border border-zinc-800 grain-bg">
-        <Counter end={30} label="Avaliações ⭐" suffix="+" />
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 py-6 sm:py-8 px-3 sm:px-6 bg-gradient-to-br from-zinc-900 to-zinc-950 rounded-3xl border border-zinc-800 grain-bg">
+        <Counter end={30} label="Avaliações" suffix="+" />
         <Counter end={2500} label="Clientes felizes" suffix="+" />
         <Counter end={4} label="Nota média" suffix=",9" />
       </div>
