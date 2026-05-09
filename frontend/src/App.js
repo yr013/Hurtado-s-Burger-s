@@ -129,6 +129,27 @@ const REVIEWS = [
   { name: "Júlia T.", text: "Atendimento impecável e o sabor… ai meu Deus, voltarei sempre!", stars: 5 },
 ];
 
+const SCHEDULE = [
+  { day: "Domingo", short: "DOM", hours: "18:30 – 00:00", idx: 0 },
+  { day: "Segunda-feira", short: "SEG", hours: "18:30 – 00:00", idx: 1 },
+  { day: "Terça-feira", short: "TER", hours: "18:30 – 00:00", idx: 2 },
+  { day: "Quarta-feira", short: "QUA", hours: "Fechado", idx: 3, closed: true },
+  { day: "Quinta-feira", short: "QUI", hours: "18:30 – 00:00", idx: 4 },
+  { day: "Sexta-feira", short: "SEX", hours: "18:30 – 00:00", idx: 5 },
+  { day: "Sábado", short: "SAB", hours: "18:30 – 00:00", idx: 6 },
+];
+
+const isOpenNow = () => {
+  const now = new Date();
+  const day = now.getDay();
+  if (day === 3) return false; // quarta
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const minutes = h * 60 + m;
+  // 18:30 (1110) até 23:59 (1439) OU 00:00 ainda do dia anterior já cobrado
+  return minutes >= 18 * 60 + 30 || minutes < 1; // simplificado: 18:30 → 23:59
+};
+
 const formatBRL = (v) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
@@ -498,8 +519,8 @@ const Hero = ({ onMenu }) => (
             <span className="text-sm text-zinc-300"><b className="text-yellow-400">4,9</b> · 30 avaliações</span>
           </div>
           <div className="hidden sm:flex items-center gap-2 text-sm text-zinc-400">
-            <Clock className="w-4 h-4 text-green-500" />
-            Aberto até 00:00
+            <span className={`w-2 h-2 rounded-full ${isOpenNow() ? "bg-green-500 animate-pulse" : "bg-red-500"}`} />
+            {isOpenNow() ? "Aberto agora · até 00:00" : "Fechado no momento"}
           </div>
         </div>
       </div>
@@ -716,7 +737,6 @@ const Contato = () => (
           {[
             { icon: MapPin, title: "Endereço", text: "R. Gov. Ari Marcos, 1351\nAgenor M. de Carvalho\nPorto Velho - RO" },
             { icon: Phone, title: "Telefone / WhatsApp", text: "(69) 99280-6024" },
-            { icon: Clock, title: "Funcionamento", text: "Aberto até 00:00" },
           ].map((c, i) => (
             <div key={i} className="flex gap-4 bg-black border border-zinc-800 rounded-2xl p-5">
               <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center flex-shrink-0">
@@ -728,6 +748,49 @@ const Contato = () => (
               </div>
             </div>
           ))}
+
+          <div className="bg-black border border-zinc-800 rounded-2xl p-5">
+            <div className="flex gap-4 items-start">
+              <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center flex-shrink-0">
+                <Clock className="w-6 h-6 text-yellow-400" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <p className="font-bebas text-yellow-400 tracking-wide text-sm">Horário de funcionamento</p>
+                  <span
+                    data-testid="status-pill"
+                    className={`text-[10px] font-bebas tracking-widest px-2 py-0.5 rounded-full flex items-center gap-1.5 ${
+                      isOpenNow()
+                        ? "bg-green-500/15 text-green-400 border border-green-500/30"
+                        : "bg-red-500/15 text-red-400 border border-red-500/30"
+                    }`}
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${isOpenNow() ? "bg-green-500 animate-pulse" : "bg-red-500"}`} />
+                    {isOpenNow() ? "ABERTO AGORA" : "FECHADO"}
+                  </span>
+                </div>
+                <ul className="mt-3 divide-y divide-zinc-900">
+                  {SCHEDULE.map((s) => {
+                    const isToday = s.idx === new Date().getDay();
+                    return (
+                      <li
+                        key={s.day}
+                        className={`flex items-center justify-between py-2 text-sm ${
+                          isToday ? "text-yellow-400 font-semibold" : "text-zinc-300"
+                        }`}
+                      >
+                        <span className="flex items-center gap-2">
+                          {isToday && <span className="w-1 h-1 rounded-full bg-yellow-400" />}
+                          {s.day}
+                        </span>
+                        <span className={s.closed ? "text-red-400" : ""}>{s.hours}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
           <a href={WHATSAPP_BASE} target="_blank" rel="noreferrer" data-testid="contato-whatsapp">
             <Button className="btn-fire w-full rounded-full text-white py-6 mt-2">
               <MessageCircle className="w-5 h-5 mr-2" /> Chamar no WhatsApp
@@ -793,7 +856,8 @@ const Footer = () => (
       </div>
       <div>
         <p className="font-bebas text-yellow-400 tracking-widest text-sm mb-3">HORÁRIO</p>
-        <p className="text-zinc-400 text-sm">Aberto até 00:00</p>
+        <p className="text-zinc-400 text-sm">Ter — Dom: 18:30 – 00:00</p>
+        <p className="text-zinc-500 text-xs mt-1">Quarta-feira: <span className="text-red-400">Fechado</span></p>
         <p className="text-zinc-500 text-xs mt-3">© {new Date().getFullYear()} Hurtado's Burger's. Todos os direitos reservados.</p>
       </div>
     </div>
