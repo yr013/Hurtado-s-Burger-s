@@ -514,35 +514,29 @@ const Hero = ({ onMenu }) => (
 
 const About = () => (
   <section id="sobre" className="py-20 relative">
-    <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
-      <div>
+    <div className="max-w-7xl mx-auto px-4 md:px-8">
+      <div className="max-w-3xl">
         <p className="font-bebas text-yellow-400 text-sm tracking-[0.3em] mb-3">SOBRE A CASA</p>
         <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[0.95] mb-6">
           Sabor que vira <span className="text-orange-500">paixão</span>.
         </h2>
-        <p className="text-zinc-400 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
+        <p className="text-zinc-400 text-base md:text-lg leading-relaxed mb-10 max-w-2xl">
           Em Porto Velho, a Hurtado's Burger's nasceu da obsessão por um lanche realmente bem feito: pão fresquinho, carne suculenta na chapa, e a maionese caseira apimentada que virou marca registrada da casa.
         </p>
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            { icon: Award, title: "Atendimento nota 10", desc: "Rápido e atencioso" },
-            { icon: Flame, title: "Maionese caseira", desc: "Apimentada, inesquecível" },
-            { icon: Bike, title: "Entrega rápida", desc: "Quentinho na sua porta" },
-            { icon: Heart, title: "Custo-benefício", desc: "Preço que cabe no bolso" },
-          ].map((f, i) => (
-            <div key={i} className="bg-zinc-950 border border-zinc-800 rounded-xl p-4 hover:border-yellow-500/40 transition">
-              <f.icon className="w-6 h-6 text-yellow-400 mb-2" />
-              <p className="font-semibold text-sm">{f.title}</p>
-              <p className="text-xs text-zinc-500 mt-1">{f.desc}</p>
-            </div>
-          ))}
-        </div>
       </div>
-
-      <div className="grid grid-cols-3 gap-2 sm:gap-4 py-6 sm:py-8 px-3 sm:px-6 bg-gradient-to-br from-zinc-900 to-zinc-950 rounded-3xl border border-zinc-800 grain-bg">
-        <Counter end={30} label="Avaliações" suffix="+" />
-        <Counter end={2500} label="Clientes felizes" suffix="+" />
-        <Counter end={4} label="Nota média" suffix=",9" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          { icon: Award, title: "Atendimento nota 10", desc: "Rápido e atencioso" },
+          { icon: Flame, title: "Maionese caseira", desc: "Apimentada, inesquecível" },
+          { icon: Bike, title: "Entrega rápida", desc: "Quentinho na sua porta" },
+          { icon: Heart, title: "Custo-benefício", desc: "Preço que cabe no bolso" },
+        ].map((f, i) => (
+          <div key={i} className="bg-zinc-950 border border-zinc-800 rounded-xl p-5 hover:border-yellow-500/40 transition">
+            <f.icon className="w-7 h-7 text-yellow-400 mb-3" />
+            <p className="font-semibold text-sm">{f.title}</p>
+            <p className="text-xs text-zinc-500 mt-1">{f.desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
