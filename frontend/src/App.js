@@ -169,6 +169,7 @@ const CustomizeDialog = ({ open, onOpenChange, item }) => {
   const [obs, setObs] = useState("");
   const [mode, setMode] = useState("entrega");
   const [address, setAddress] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -178,6 +179,7 @@ const CustomizeDialog = ({ open, onOpenChange, item }) => {
       setObs("");
       setMode("entrega");
       setAddress("");
+      setNeighborhood("");
       setName("");
     }
   }, [open, item]);
@@ -219,9 +221,14 @@ const CustomizeDialog = ({ open, onOpenChange, item }) => {
     lines.push("");
     lines.push(`*Modalidade:* ${mode === "entrega" ? "🛵 Entrega" : mode === "retirada" ? "🏃 Retirada na porta" : "🍽️ Consumo no local"}`);
     if (mode === "entrega" && address) lines.push(`*Endereço:* ${address}`);
+    if (mode === "entrega" && neighborhood.trim()) lines.push(`*Bairro:* ${neighborhood.trim()}`);
     if (name.trim()) lines.push(`*Nome:* ${name.trim()}`);
     lines.push("");
-    lines.push(`*TOTAL: ${formatBRL(totals.subtotal)}*`);
+    lines.push(`*SUBTOTAL: ${formatBRL(totals.subtotal)}*`);
+    if (mode === "entrega") {
+      lines.push("");
+      lines.push("👉 *Pode me informar a taxa de entrega para esse endereço, por favor?*");
+    }
     lines.push("");
     lines.push("_Pedido gerado pelo site oficial._");
 
@@ -338,16 +345,35 @@ const CustomizeDialog = ({ open, onOpenChange, item }) => {
             </RadioGroup>
 
             {mode === "entrega" && (
-              <div className="mt-3">
-                <Label htmlFor="address" className="text-xs text-zinc-400 uppercase tracking-wide">Endereço de entrega</Label>
-                <Textarea
-                  id="address"
-                  data-testid="input-address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  placeholder="Rua, número, bairro, ponto de referência..."
-                  className="mt-1 bg-zinc-900 border-zinc-800 text-white resize-none min-h-[60px] focus:border-yellow-500 focus:ring-yellow-500"
-                />
+              <div className="mt-3 space-y-3">
+                <div>
+                  <Label htmlFor="address" className="text-xs text-zinc-400 uppercase tracking-wide">Endereço de entrega</Label>
+                  <Textarea
+                    id="address"
+                    data-testid="input-address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Rua, número, complemento, ponto de referência..."
+                    className="mt-1 bg-zinc-900 border-zinc-800 text-white resize-none min-h-[60px] focus:border-yellow-500 focus:ring-yellow-500"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="neighborhood" className="text-xs text-zinc-400 uppercase tracking-wide">Bairro</Label>
+                  <input
+                    id="neighborhood"
+                    data-testid="input-neighborhood"
+                    value={neighborhood}
+                    onChange={(e) => setNeighborhood(e.target.value)}
+                    placeholder="Ex: Agenor M. de Carvalho"
+                    className="mt-1 w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-sm text-white focus:border-yellow-500 focus:outline-none"
+                  />
+                </div>
+                <div className="flex gap-2 items-start bg-orange-500/10 border border-orange-500/30 rounded-lg px-3 py-2.5">
+                  <Bike className="w-4 h-4 text-orange-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-orange-200 leading-relaxed">
+                    A <b>taxa de entrega</b> varia conforme o bairro e será confirmada pelo atendente no WhatsApp.
+                  </p>
+                </div>
               </div>
             )}
           </div>
@@ -738,19 +764,32 @@ const Footer = () => (
       <div>
         <p className="font-bebas text-yellow-400 tracking-widest text-sm mb-3">SIGA A GENTE</p>
         <div className="flex gap-3">
-          {[Instagram, Facebook, MessageCircle].map((Icon, i) => (
+          {[
+            { Icon: Instagram, href: "https://www.instagram.com/hurtadosburgers/", label: "instagram" },
+            { Icon: MessageCircle, href: WHATSAPP_BASE, label: "whatsapp" },
+          ].map(({ Icon, href, label }) => (
             <a
-              key={i}
-              href={i === 2 ? WHATSAPP_BASE : "#"}
+              key={label}
+              href={href}
               target="_blank"
               rel="noreferrer"
-              data-testid={`social-${i}`}
+              data-testid={`social-${label}`}
               className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 hover:bg-yellow-500 hover:text-black hover:border-yellow-500 flex items-center justify-center transition"
             >
               <Icon className="w-4 h-4" />
             </a>
           ))}
         </div>
+        <a
+          href="https://www.instagram.com/hurtadosburgers/"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 mt-4 text-zinc-400 hover:text-yellow-400 text-sm transition"
+          data-testid="footer-instagram-handle"
+        >
+          <Instagram className="w-4 h-4" />
+          @hurtadosburgers
+        </a>
       </div>
       <div>
         <p className="font-bebas text-yellow-400 tracking-widest text-sm mb-3">HORÁRIO</p>
